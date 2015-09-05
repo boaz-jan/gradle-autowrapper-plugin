@@ -46,13 +46,13 @@ autowrapper {
 }
 ```
 
-Property          | Description                                                                    | Type          | Default Value
--------------     | -------------                                                                  | ------------- | -------------
-gradleVersion     | The required gradle version                                                    | String        | The executing Gradle's version
-strict            | Whether or not a newer version then gradleVersion is acceptable                | boolean       | false
-failFast          | Whether or not the build should be actively failed on gradle version mismatch  | boolean       | true
-autoGen           | Whether or not the plugin should generate the correct wrapper version          | boolean       | true
-quiet             | Whether or not the plugin should output to the log                             | boolean       | false
+Property               | Description                                                                    | Default Value
+-------------          | -------------                                                                  | -------------
+_String_ gradleVersion | The required gradle version                                                    | Execution version
+_boolean_ strict       | Whether or not a newer version then gradleVersion is acceptable                | false
+_boolean_ failFast     | Whether or not the build should be actively failed on gradle version mismatch  | true
+_boolean_ autoGen      | Whether or not the plugin should generate the correct wrapper version          | true
+_boolean_ quiet        | Whether or not the plugin should output to the log                             | false
 archiveBase       | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archiveBase)
 archivePath       | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archivePath)
 distributionBase  | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionBase)
