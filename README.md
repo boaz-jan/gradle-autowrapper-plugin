@@ -11,6 +11,9 @@ The Autowrapper plugin provides a simple way to ensure that the execution uses a
 Gradle. In the case of a mismatch version - it will generate the correct version of Gradle Wrapper.
 
 ![Screenshot](/docs/screenshot.jpg?raw=true "Screenshot")
+(In this screenshot you can see the result of a strict, failFast configuration. Autowrapper recognizes the the executing
+Gradle is 2.6 and the required version is 2.5 thus failing the build and generating the correct wrapper file. The second
+ execution passes with the right version)
 
 ## Usage
 
@@ -59,7 +62,7 @@ scriptFile        | [See Documentation](https://docs.gradle.org/current/dsl/org.
 
 
 ## Road Map
-- [ ] Add an "only enforce" mode in which the plugin does no regenerate the wrapper to the required version
+- [ ] Add an "only enforce" mode in which the plugin does not regenerate the wrapper to the required version
 - [ ] Add a simplified way to create a distribution locator which will provide a simple way to access custom mirrors for the Gradle binaries
 - [ ] Add a locator for obtaining a centralized Gradle version instead of a per build script version
 - [ ] Add cli override to some of the properties
