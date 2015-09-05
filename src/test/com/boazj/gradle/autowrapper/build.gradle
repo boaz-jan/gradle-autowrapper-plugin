@@ -1,0 +1,24 @@
+apply plugin: 'autowrapper'
+
+buildscript {
+	repositories {
+		mavenLocal()
+	}
+	dependencies {
+		classpath 'com.boazj.gradle:gradle-autowrapper-plugin:1.0-rc1'
+	}
+}
+
+autowrapper {
+	strict = true
+	failFast = true
+	version = 2.5
+}
+
+task nothing << {
+	println 'Done.'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.6'
+}
