@@ -9,7 +9,7 @@ class AutowrapperExtension {
     // false means lets the build continue in case incorrect version, true means fail the build
     def boolean failFast = true
     // the expected version of the gradle binary
-    def String version = GradleVersion.current().getVersion()
+    def String gradleVersion = GradleVersion.current().getVersion()
     // shut up about it
     def boolean quiet = false
 

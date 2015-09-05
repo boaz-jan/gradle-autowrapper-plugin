@@ -12,7 +12,7 @@ buildscript {
 autowrapper {
 	strict = true
 	failFast = true
-	version = 2.5
+	gradleVersion = 2.5
 }
 
 task nothing << {

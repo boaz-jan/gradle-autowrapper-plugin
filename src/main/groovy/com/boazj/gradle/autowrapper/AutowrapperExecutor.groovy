@@ -22,7 +22,7 @@ class AutowrapperExecutor extends Closure<Void> {
         out = new Output(project, "autowrapper-output")
         out.say('Checking Gradle version ... ')
         gradleVersion = GradleVersion.current()
-        def versionCompare = GradleUtils.compare(GradleVersion.version(ext.version), gradleVersion)
+        def versionCompare = GradleUtils.compare(GradleVersion.version(ext.gradleVersion), gradleVersion)
 
         if (versionCompare == VersionCompare.Newer || (versionCompare == VersionCompare.Older && ext.strict)) {
             noMatch()
@@ -32,9 +32,9 @@ class AutowrapperExecutor extends Closure<Void> {
     }
 
     void regenWrapper() {
-        out.sayln("Generating Gradle Wrapper for version ${ext.version}.", Color.Yellow)
+        out.sayln("Generating Gradle Wrapper for version ${ext.gradleVersion}.", Color.Yellow)
         Wrapper wrapperTask = ext.wrapperTask
-        wrapperTask.gradleVersion = ext.version
+        wrapperTask.gradleVersion = ext.gradleVersion
         if (ext.archiveBase != null) {
             wrapperTask.setArchiveBase(ext.archiveBase)
         }
@@ -60,7 +60,7 @@ class AutowrapperExecutor extends Closure<Void> {
     }
 
     void noMatch() {
-        out.sayln("The build script requieres Gradle ${ext.version}. Currently executing ${gradleVersion}.", Color.Red)
+        out.sayln("The build script requieres Gradle ${ext.gradleVersion}. Currently executing ${gradleVersion}.", Color.Red)
         regenWrapper()
         if (ext.failFast) {
             fail()
