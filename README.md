@@ -10,7 +10,7 @@ This plugin is the first step of solving such problems - making sure the build i
 The Autowrapper plugin provides a simple way to ensure that the execution uses a new enough or even exact version of
 Gradle. In the case of a mismatch version - it will generate the correct version of Gradle Wrapper.
 
-![Screenshot](/doc/screenshot.jpg?raw=true "Screenshot")
+![Screenshot](/docs/screenshot.jpg?raw=true "Screenshot")
 
 ## Usage
 
