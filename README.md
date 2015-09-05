@@ -46,20 +46,20 @@ autowrapper {
 }
 ```
 
-Property               | Description                                                                    | Default Value
--------------          | -------------                                                                  | -------------
-_String_ gradleVersion | The required gradle version                                                    | Execution version
-_boolean_ strict       | Whether or not a newer version then gradleVersion is acceptable                | false
-_boolean_ failFast     | Whether or not the build should be actively failed on gradle version mismatch  | true
-_boolean_ autoGen      | Whether or not the plugin should generate the correct wrapper version          | true
-_boolean_ quiet        | Whether or not the plugin should output to the log                             | false
-archiveBase       | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archiveBase)
-archivePath       | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archivePath)
-distributionBase  | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionBase)
-distributionPath  | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionPath)
-distributionUrl   | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionUrl)
-jarFile           | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:jarFile)
-scriptFile        | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:scriptFile)
+Property               | Description                                            | Default Value
+-------------          | -------------                                          | -------------
+_String_ gradleVersion | The required gradle version                            | Gradle version
+_boolean_ strict       | If a newer version then gradleVersion is acceptable    | false
+_boolean_ failFast     | If the build should fail on gradle version mismatch    | true
+_boolean_ autoGen      | If the plugin should auto generate the correct wrapper | true
+_boolean_ quiet        | If the plugin should output to the log                 | false
+archiveBase       | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archiveBase)
+archivePath       | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archivePath)
+distributionBase  | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionBase)
+distributionPath  | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionPath)
+distributionUrl   | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionUrl)
+jarFile           | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:jarFile)
+scriptFile        | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:scriptFile)
 
 
 ## Road Map
