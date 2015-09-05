@@ -19,7 +19,7 @@ class AutowrapperExecutor extends Closure<Void> {
 
     void doCall(Project project) {
         ext = project.extensions."${AutowrapperPlugin.AUTOWRAPPER_EXTENSION_NAME}"
-        out = new Output(project, "autowrapper-output")
+        out = new Output(project, "autowrapper-output", ext.quiet)
         out.say('Checking Gradle version ... ')
         gradleVersion = GradleVersion.current()
         def versionCompare = GradleUtils.compare(GradleVersion.version(ext.gradleVersion), gradleVersion)
@@ -32,6 +32,9 @@ class AutowrapperExecutor extends Closure<Void> {
     }
 
     void regenWrapper() {
+        if (!ext.autoGen) {
+            return
+        }
         out.sayln("Generating Gradle Wrapper for version ${ext.gradleVersion}.", Color.Yellow)
         Wrapper wrapperTask = ext.wrapperTask
         wrapperTask.gradleVersion = ext.gradleVersion
@@ -65,12 +68,16 @@ class AutowrapperExecutor extends Closure<Void> {
         if (ext.failFast) {
             fail()
         } else {
-            out.sayln("This might effect the build process.", Color.Red)
+            out.sayln("This might effect the build process.", Color.Yellow)
         }
     }
 
     void fail() {
-        out.sayln("Failing build, please execute this script again with the Gradle Wrapper", Color.Red)
+        def failMsg = 'Failing build'
+        if (ext.autoGen) {
+            failMsg  += ', please execute this script again with the Gradle Wrapper'
+        }
+        out.say(failMsg, Color.Red)
         out.emptyln()
         throw new StopExecutionException('Gradle version is not as required')
     }

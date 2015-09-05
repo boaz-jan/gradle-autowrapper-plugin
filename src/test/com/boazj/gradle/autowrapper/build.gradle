@@ -12,6 +12,7 @@ buildscript {
 autowrapper {
 	strict = true
 	failFast = true
+	autoGen = true
 	gradleVersion = 2.5
 }
 

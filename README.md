@@ -11,7 +11,7 @@ The Autowrapper plugin provides a simple way to ensure that the execution uses a
 Gradle. In the case of a mismatch version - it will generate the correct version of Gradle Wrapper.
 
 ![Screenshot](/docs/screenshot.jpg?raw=true "Screenshot")
-(In this screenshot you can see the result of a strict, failFast configuration. Autowrapper recognizes the the executing
+(In this screenshot you can see the result of a strict, failFast configuration. Autowrapper recognizes that the executing
 Gradle is 2.6 and the required version is 2.5 thus failing the build and generating the correct wrapper file. The second
  execution passes with the right version)
 
@@ -46,12 +46,13 @@ autowrapper {
 }
 ```
 
-Property          | Description                                                                    | Type
--------------     | -------------                                                                  | -------------
-gradleVersion     | The required gradle version                                                    | String
-strict            | Whether or not a newer version then gradleVersion is acceptable                | boolean
-failFast          | Whether or not the build should be actively failed on gradle version mismatch  | boolean
-quiet             | Whether or not the plugin should output to the log                             | boolean
+Property          | Description                                                                    | Type          | Default Value
+-------------     | -------------                                                                  | ------------- | -------------
+gradleVersion     | The required gradle version                                                    | String        | The executing Gradle's version
+strict            | Whether or not a newer version then gradleVersion is acceptable                | boolean       | false
+failFast          | Whether or not the build should be actively failed on gradle version mismatch  | boolean       | true
+autoGen           | Whether or not the plugin should generate the correct wrapper version          | boolean       | true
+quiet             | Whether or not the plugin should output to the log                             | boolean       | false
 archiveBase       | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archiveBase)
 archivePath       | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archivePath)
 distributionBase  | [See Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionBase)
@@ -62,7 +63,7 @@ scriptFile        | [See Documentation](https://docs.gradle.org/current/dsl/org.
 
 
 ## Road Map
-- [ ] Add an "only enforce" mode in which the plugin does not regenerate the wrapper to the required version
+- [X] Add an "only enforce" mode in which the plugin does not regenerate the wrapper to the required version
 - [ ] Add a simplified way to create a distribution locator which will provide a simple way to access custom mirrors for the Gradle binaries
 - [ ] Add a locator for obtaining a centralized Gradle version instead of a per build script version
 - [ ] Add cli override to some of the properties
