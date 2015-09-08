@@ -11,23 +11,23 @@ class AutowrapperExecutor extends Closure<Void> {
 
     def Output out
     def AutowrapperExtension ext
-    def GradleVersion gradleVersion
+    def GradleVersion executionGradleVersion = GradleVersion.current()
+    def Wrapper wrapperTask
 
-    AutowrapperExecutor() {
+    AutowrapperExecutor(AutowrapperExtension ext, Wrapper wrapperTask) {
         super(null)
+        this.ext = ext
+        this.wrapperTask = wrapperTask
     }
 
     void doCall(Project project) {
-        ext = project.extensions."${AutowrapperPlugin.AUTOWRAPPER_EXTENSION_NAME}"
         out = new Output(project, "autowrapper-output", ext.quiet)
         out.say('Checking Gradle version ... ')
-        gradleVersion = GradleVersion.current()
-        def versionCompare = GradleUtils.compare(GradleVersion.version(ext.gradleVersion), gradleVersion)
-
-        if (versionCompare == VersionCompare.Newer || (versionCompare == VersionCompare.Older && ext.strict)) {
+        def expectedGradleVersion = GradleVersion.version(ext.gradleVersion)
+        if (expectedGradleVersion > executionGradleVersion|| (expectedGradleVersion < executionGradleVersion && ext.strict)) {
             noMatch()
         } else {
-            out.sayln("${gradleVersion} √", Color.Green)
+            out.sayln("${executionGradleVersion} √", Color.Green)
         }
     }
 
@@ -36,7 +36,6 @@ class AutowrapperExecutor extends Closure<Void> {
             return
         }
         out.sayln("Generating Gradle Wrapper for version ${ext.gradleVersion}.", Color.Yellow)
-        Wrapper wrapperTask = ext.wrapperTask
         wrapperTask.gradleVersion = ext.gradleVersion
         if (ext.archiveBase != null) {
             wrapperTask.setArchiveBase(ext.archiveBase)
@@ -63,7 +62,7 @@ class AutowrapperExecutor extends Closure<Void> {
     }
 
     void noMatch() {
-        out.sayln("The build script requires Gradle ${ext.gradleVersion}. Currently executing ${gradleVersion}.", Color.Red)
+        out.sayln("The build script requires Gradle ${ext.gradleVersion}. Currently executing ${executionGradleVersion}.", Color.Red)
         regenWrapper()
         if (ext.failFast) {
             fail()

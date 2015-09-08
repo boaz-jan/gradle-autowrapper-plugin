@@ -17,8 +17,8 @@ class AutowrapperPlugin implements Plugin<Project> {
         }
 
         AutowrapperExtension ext = project.extensions.create(AUTOWRAPPER_EXTENSION_NAME, AutowrapperExtension)
-        ext.wrapperTask = project.tasks.create(WRAPPER_TASK_NAME, Wrapper.class)
-        project.afterEvaluate(new AutowrapperExecutor())
+        def wrapperTask = project.tasks.create(WRAPPER_TASK_NAME, Wrapper.class)
+        project.afterEvaluate(new AutowrapperExecutor(ext, wrapperTask))
     }
 }
 

@@ -18,7 +18,4 @@ class AutowrapperExtension {
     def String distributionUrl
     def File jarFile
     def File scriptFile
-
-    //internal state
-    def Wrapper wrapperTask
 }
