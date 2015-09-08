@@ -1,8 +1,14 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
+
+repositories {
+    jcenter()
+}
+
 dependencies {
     compile gradleApi()
     compile localGroovy()
+    testCompile 'com.netflix.nebula:nebula-test:3.0.0'
 }
 
 group = 'com.boazj.gradle'

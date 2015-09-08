@@ -63,6 +63,7 @@ scriptFile        | See [Documentation](https://docs.gradle.org/current/dsl/org.
 
 
 ## Road Map
+- [X] Add tests
 - [X] Add an "only enforce" mode in which the plugin does not regenerate the wrapper to the required version
 - [ ] Add a simplified way to create a distribution locator which will provide a simple way to access custom mirrors for the Gradle binaries
 - [ ] Add a locator for obtaining a centralized Gradle version instead of a per build script version

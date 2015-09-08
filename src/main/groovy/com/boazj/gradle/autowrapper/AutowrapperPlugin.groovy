@@ -6,18 +6,18 @@ import org.gradle.api.tasks.wrapper.Wrapper
 
 class AutowrapperPlugin implements Plugin<Project> {
     public static final String AUTOWRAPPER_EXTENSION_NAME = 'autowrapper'
-    public static final String WRAPPER_TASK_NAME = 'wrapper'
+    public static final String WRAPPER_TASK_NAME = 'autowrapper'
 
     @Override
     void apply(Project project) {
         if (!GradleUtils.isRootProject(project) ||
-                GradleUtils.isExtensionPresent(project, AUTOWRAPPER_EXTENSION_NAME)) {
+                GradleUtils.isExtensionPresent(project, AUTOWRAPPER_EXTENSION_NAME) ||
+                project.tasks.findByName(WRAPPER_TASK_NAME) != null) {
             return
         }
 
         AutowrapperExtension ext = project.extensions.create(AUTOWRAPPER_EXTENSION_NAME, AutowrapperExtension)
-        def wrapperTaskName = "${WRAPPER_TASK_NAME}${(UUID.randomUUID() as String)}"
-        ext.wrapperTask = project.tasks.create(wrapperTaskName, Wrapper.class)
+        ext.wrapperTask = project.tasks.create(WRAPPER_TASK_NAME, Wrapper.class)
         project.afterEvaluate(new AutowrapperExecutor())
     }
 }

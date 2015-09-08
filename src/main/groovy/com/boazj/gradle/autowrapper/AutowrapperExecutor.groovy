@@ -63,7 +63,7 @@ class AutowrapperExecutor extends Closure<Void> {
     }
 
     void noMatch() {
-        out.sayln("The build script requieres Gradle ${ext.gradleVersion}. Currently executing ${gradleVersion}.", Color.Red)
+        out.sayln("The build script requires Gradle ${ext.gradleVersion}. Currently executing ${gradleVersion}.", Color.Red)
         regenWrapper()
         if (ext.failFast) {
             fail()
