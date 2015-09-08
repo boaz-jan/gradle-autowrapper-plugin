@@ -15,6 +15,7 @@ class Output {
     }
 
     def boolean quiet
+    def boolean oldMode
 
     private def Closure sayMethod = { String s, Color color = Color.White ->
         if (!this.quiet) {
@@ -30,6 +31,7 @@ class Output {
 
     Output(Project project, String name, boolean quiet = false) {
         this.quiet = quiet
+        this.oldMode = !SystemProperties.metaClass.respondsTo(SystemProperties, 'getInstance')
         def gradle = project.getGradle()
         if (gradle instanceof GradleInternal && gradle.metaClass.respondsTo(gradle, "getServices")) {
             org.gradle.logging.StyledTextOutput out = gradle.getServices().get(org.gradle.logging.StyledTextOutputFactory).create(name)

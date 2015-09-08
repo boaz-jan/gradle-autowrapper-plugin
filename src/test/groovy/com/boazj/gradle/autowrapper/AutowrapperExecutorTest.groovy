@@ -5,6 +5,14 @@ import nebula.test.functional.ExecutionResult
 
 class AutowrapperExecutorTest extends IntegrationSpec {
 
+    def boolean isWrapperPropsExists(){
+        def props = new File("${getProjectDir().absolutePath}/gradle/wrapper/gradle-wrapper.properties")
+        if (props.exists()) {
+            return props.text.contains('services.gradle.org/distributions/gradle-2.5-bin.zip')
+        }
+        return false
+    }
+
     def 'run with matching version'() {
         this.gradleVersion = '2.5'
         buildFile << '''
@@ -27,7 +35,7 @@ class AutowrapperExecutorTest extends IntegrationSpec {
         ExecutionResult result = runTasksSuccessfully('nothing')
 
         then:
-        result.standardOutput.contains('Gradle 2.5 √')
+        result.standardOutput.contains('Checking Gradle version ... Gradle 2.5 √')
     }
 
     def 'run with old gradle version'() {
@@ -56,7 +64,7 @@ class AutowrapperExecutorTest extends IntegrationSpec {
         result.standardOutput.contains('Generating Gradle Wrapper for version 2.5.')
         result.standardOutput.contains('Failing build, please execute this script again with the Gradle Wrapper')
         result.standardError.contains('Gradle version is not as required')
-        new File("${getProjectDir().absolutePath}/gradle/wrapper/gradle-wrapper.properties").text.contains('services.gradle.org/distributions/gradle-2.5-bin.zip')
+        isWrapperPropsExists()
     }
 
     def 'run with old gradle version - non autoGen mode'() {
@@ -88,8 +96,7 @@ class AutowrapperExecutorTest extends IntegrationSpec {
         result.standardOutput.contains('Checking Gradle version ... The build script requires Gradle 2.5. Currently executing Gradle 2.4.')
         result.standardOutput.contains('Failing build')
         result.standardError.contains('Gradle version is not as required')
-        def prop = new File("${getProjectDir().absolutePath}/gradle/wrapper/gradle-wrapper.properties");
-        !prop.exists()
+        !isWrapperPropsExists()
     }
 
     def 'run with newer version - non strict mode'() {
@@ -143,7 +150,7 @@ class AutowrapperExecutorTest extends IntegrationSpec {
         result.standardOutput.contains('Generating Gradle Wrapper for version 2.5.')
         result.standardOutput.contains('Failing build, please execute this script again with the Gradle Wrapper')
         result.standardError.contains('Gradle version is not as required')
-        new File("${getProjectDir().absolutePath}/gradle/wrapper/gradle-wrapper.properties").text.contains('services.gradle.org/distributions/gradle-2.5-bin.zip')
+        isWrapperPropsExists()
     }
 
     def 'run quietly with newer version - strict mode'() {
@@ -172,6 +179,6 @@ class AutowrapperExecutorTest extends IntegrationSpec {
         !result.standardOutput.contains('Generating Gradle Wrapper for version 2.5.')
         !result.standardOutput.contains('Failing build, please execute this script again with the Gradle Wrapper')
         result.standardError.contains('Gradle version is not as required')
-        new File("${getProjectDir().absolutePath}/gradle/wrapper/gradle-wrapper.properties").text.contains('services.gradle.org/distributions/gradle-2.5-bin.zip')
+        isWrapperPropsExists()
     }
 }
