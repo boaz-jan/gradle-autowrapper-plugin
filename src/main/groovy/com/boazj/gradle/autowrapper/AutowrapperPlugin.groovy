@@ -10,14 +10,13 @@ class AutowrapperPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        if (!GradleUtils.isRootProject(project) ||
-                GradleUtils.isExtensionPresent(project, AUTOWRAPPER_EXTENSION_NAME) ||
+        if (AutowrapperExtension.exists(project) ||
                 project.tasks.findByName(WRAPPER_TASK_NAME) != null) {
             return
         }
 
-        AutowrapperExtension ext = project.extensions.create(AUTOWRAPPER_EXTENSION_NAME, AutowrapperExtension)
         def wrapperTask = project.tasks.create(WRAPPER_TASK_NAME, Wrapper.class)
+        AutowrapperExtension ext = project.extensions.create(AUTOWRAPPER_EXTENSION_NAME, AutowrapperExtension, wrapperTask)
         project.afterEvaluate(new AutowrapperExecutor(ext, wrapperTask))
     }
 }

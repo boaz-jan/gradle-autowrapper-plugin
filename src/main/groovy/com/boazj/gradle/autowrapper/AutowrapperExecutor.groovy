@@ -24,7 +24,7 @@ class AutowrapperExecutor extends Closure<Void> {
         out = new Output(project, "autowrapper-output", ext.quiet)
         out.say('Checking Gradle version ... ')
         def expectedGradleVersion = GradleVersion.version(ext.gradleVersion)
-        if (expectedGradleVersion > executionGradleVersion|| (expectedGradleVersion < executionGradleVersion && ext.strict)) {
+        if (expectedGradleVersion > executionGradleVersion || (expectedGradleVersion < executionGradleVersion && ext.strict)) {
             noMatch()
         } else {
             out.sayln("${executionGradleVersion} √", Color.Green)
@@ -36,28 +36,14 @@ class AutowrapperExecutor extends Closure<Void> {
             return
         }
         out.sayln("Generating Gradle Wrapper for version ${ext.gradleVersion}.", Color.Yellow)
-        wrapperTask.gradleVersion = ext.gradleVersion
-        if (ext.archiveBase != null) {
-            wrapperTask.setArchiveBase(ext.archiveBase)
-        }
-        if (ext.archivePath != null) {
-            wrapperTask.setArchivePath(ext.archivePath)
-        }
-        if (ext.distributionBase != null) {
-            wrapperTask.setDistributionBase(ext.distributionBase)
-        }
-        if (ext.distributionPath != null) {
-            wrapperTask.setDistributionPath(ext.distributionPath)
-        }
-        if (ext.distributionUrl != null) {
-            wrapperTask.setDistributionUrl(ext.distributionUrl)
-        }
-        if (ext.jarFile != null) {
-            wrapperTask.setJarFile(ext.jarFile)
-        }
-        if (ext.scriptFile != null) {
-            wrapperTask.setScriptFile(ext.scriptFile)
-        }
+        wrapperTask.setGradleVersion(ext.gradleVersion)
+        wrapperTask.setArchiveBase(ext.archiveBase)
+        wrapperTask.setArchivePath(ext.archivePath)
+        wrapperTask.setDistributionBase(ext.distributionBase)
+        wrapperTask.setDistributionPath(ext.distributionPath)
+        wrapperTask.setDistributionUrl(ext.distributionUrl)
+        wrapperTask.setJarFile(ext.jarFile)
+        wrapperTask.setScriptFile(ext.scriptFile)
         wrapperTask.execute()
     }
 
@@ -74,10 +60,9 @@ class AutowrapperExecutor extends Closure<Void> {
     void fail() {
         def failMsg = 'Failing build'
         if (ext.autoGen) {
-            failMsg  += ', please execute this script again with the Gradle Wrapper'
+            failMsg += ', please execute this script again with the Gradle Wrapper'
         }
-        out.say(failMsg, Color.Red)
-        out.emptyln()
+        out.sayln(failMsg, Color.Red)
         throw new StopExecutionException('Gradle version is not as required')
     }
 }
