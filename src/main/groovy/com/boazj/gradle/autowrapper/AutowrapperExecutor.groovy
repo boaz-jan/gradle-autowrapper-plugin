@@ -1,11 +1,12 @@
 package com.boazj.gradle.autowrapper
 
+import com.boazj.gradle.utils.Color
+import com.boazj.gradle.utils.Output
+import com.boazj.gradle.utils.OutputFactory
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.wrapper.Wrapper
 import org.gradle.util.GradleVersion
-
-import static com.boazj.gradle.autowrapper.Output.Color
 
 class AutowrapperExecutor extends Closure<Void> {
 
@@ -21,7 +22,7 @@ class AutowrapperExecutor extends Closure<Void> {
     }
 
     void doCall(Project project) {
-        out = new Output(project, "autowrapper-output", ext.quiet)
+        out = OutputFactory.create(project, "autowrapper-output", ext.quiet)
         out.say('Checking Gradle version ... ')
         def expectedGradleVersion = GradleVersion.version(ext.gradleVersion)
         if (expectedGradleVersion > executionGradleVersion || (expectedGradleVersion < executionGradleVersion && ext.strict)) {
