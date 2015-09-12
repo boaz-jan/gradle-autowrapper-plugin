@@ -5,8 +5,6 @@ import org.gradle.api.tasks.wrapper.Wrapper
 import org.gradle.util.GradleVersion
 
 class AutowrapperExtension {
-
-
     def boolean strict = false
     def boolean failFast = true
     def String gradleVersion = GradleVersion.current().getVersion()

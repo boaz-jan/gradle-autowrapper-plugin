@@ -3,7 +3,11 @@ package com.boazj.gradle.autowrapper
 import nebula.test.IntegrationSpec
 import nebula.test.functional.ExecutionResult
 
-class AutowrapperExecutorTest extends IntegrationSpec {
+class AutowrapperExecutorIntegrationSpec extends IntegrationSpec {
+
+    def setup(){
+        this.fork = true
+    }
 
     def String generateBuildScript(String gradleVersion, boolean strict, boolean failFast, boolean quiet, boolean autoGen){
         return """

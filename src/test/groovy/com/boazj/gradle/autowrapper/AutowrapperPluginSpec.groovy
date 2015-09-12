@@ -2,7 +2,7 @@ package com.boazj.gradle.autowrapper
 
 import nebula.test.PluginProjectSpec
 
-class AutowrapperPluginTest extends PluginProjectSpec {
+class AutowrapperPluginSpec extends PluginProjectSpec {
 
     @Override
     String getPluginName() { return 'com.boazj.autowrapper' }
