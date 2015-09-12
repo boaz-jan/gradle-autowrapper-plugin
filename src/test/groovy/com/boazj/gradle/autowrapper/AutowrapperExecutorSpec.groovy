@@ -4,11 +4,13 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.wrapper.Wrapper
 import org.gradle.testfixtures.ProjectBuilder
+import org.gradle.util.GradleVersion
 import spock.lang.Specification
 
 class AutowrapperExecutorSpec extends Specification {
     def Project projectProto = ProjectBuilder.builder().build()
     def Wrapper proto = projectProto.tasks.create('proto_wrapper', Wrapper.class)
+    def String nextVersion = GradleVersion.current().getNextMajor().getVersion()
 
     def createDefaultWrapperMock() {
         def Wrapper wrapperTask = Mock()
@@ -62,7 +64,7 @@ class AutowrapperExecutorSpec extends Specification {
             def TaskRunner runner = Mock()
             def Wrapper wrapperMock = createDefaultWrapperMock()
             def AutowrapperExtension ext = new AutowrapperExtension(wrapperMock)
-            ext.gradleVersion = '2.7'  //TODO: make sure this is always newer then the building version
+            ext.gradleVersion = nextVersion
             def AutowrapperExecutor exec = new AutowrapperExecutor(ext, wrapperMock, runner)
         when:
             exec.call(p)
@@ -80,7 +82,7 @@ class AutowrapperExecutorSpec extends Specification {
             p.getGradle() >> null
             def Wrapper wrapperMock = createDefaultWrapperMock()
             def AutowrapperExtension ext = new AutowrapperExtension(wrapperMock)
-            ext.gradleVersion = '2.7'  //TODO: make sure this is always newer then the building version
+            ext.gradleVersion = nextVersion
             ext.autoGen = false
             def AutowrapperExecutor exec = new AutowrapperExecutor(ext, wrapperMock)
         when:
@@ -88,5 +90,22 @@ class AutowrapperExecutorSpec extends Specification {
         then:
             def e = thrown(StopExecutionException.class)
             e.message == 'Gradle version is not as required'
+    }
+
+    def 'test older version without fail fast'() {
+        given:
+            def Project p = Mock()
+            p.getGradle() >> null
+            def TaskRunner runner = Mock()
+            def Wrapper wrapperMock = createDefaultWrapperMock()
+            def AutowrapperExtension ext = new AutowrapperExtension(wrapperMock)
+            ext.gradleVersion = nextVersion
+            ext.failFast = false
+            def AutowrapperExecutor exec = new AutowrapperExecutor(ext, wrapperMock, runner)
+        when:
+            exec.call(p)
+        then:
+            1 * runner.run(wrapperMock)
+            noExceptionThrown()
     }
 }
