@@ -1,6 +1,7 @@
 # Gradle Autowrapper Plugin
 
 [![Build Status](https://travis-ci.org/boazj/gradle-autowrapper-plugin.svg?branch=master)](https://travis-ci.org/boazj/gradle-autowrapper-plugin)
+[![Coverage Status](https://coveralls.io/repos/boazj/gradle-autowrapper-plugin/badge.svg?branch=master&service=github)](https://coveralls.io/github/boazj/gradle-autowrapper-plugin?branch=master)
 
 The plugin that will make sure you're executing your build with the correct Gradle version!
 
