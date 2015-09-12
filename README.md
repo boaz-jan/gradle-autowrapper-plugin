@@ -1,5 +1,7 @@
 # Gradle Autowrapper Plugin
 
+[![Build Status](https://travis-ci.org/boazj/gradle-autowrapper-plugin.svg?branch=master)](https://travis-ci.org/boazj/gradle-autowrapper-plugin)
+
 The plugin that will make sure you're executing your build with the correct Gradle version!
 
 Working on large, multi multi-project products with gradle, I've learned that managing
@@ -68,4 +70,4 @@ scriptFile        | See [Documentation](https://docs.gradle.org/current/dsl/org.
 - [ ] Add a simplified way to create a distribution locator which will provide a simple way to access custom mirrors for the Gradle binaries
 - [ ] Add a locator for obtaining a centralized Gradle version instead of a per build script version
 - [ ] Add cli override to some of the properties
-- [ ] Publish to repository
+- [ ] Publish to bintray and plugin portal
