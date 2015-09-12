@@ -3,6 +3,8 @@ sudo: false
 jdk:
 - oraclejdk7
 script: "./gradlew build"
+after_success:
+- "./gradlew jacocoTestReport coveralls"
 cache:
   directories:
   - "$HOME/.gradle/caches/"
