@@ -14,11 +14,16 @@ class AutowrapperExecutor extends Closure<Void> {
     def AutowrapperExtension ext
     def GradleVersion executionGradleVersion = GradleVersion.current()
     def Wrapper wrapperTask
+    def TaskRunner runner
 
-    AutowrapperExecutor(AutowrapperExtension ext, Wrapper wrapperTask) {
+    AutowrapperExecutor(AutowrapperExtension ext, Wrapper wrapperTask, TaskRunner runner = null) {
         super(null)
         this.ext = ext
         this.wrapperTask = wrapperTask
+        this.runner = runner
+        if (runner == null){
+            this.runner = new DefaultTaskRunner();
+        }
     }
 
     void doCall(Project project) {
@@ -45,7 +50,7 @@ class AutowrapperExecutor extends Closure<Void> {
         wrapperTask.setDistributionUrl(ext.distributionUrl)
         wrapperTask.setJarFile(ext.jarFile)
         wrapperTask.setScriptFile(ext.scriptFile)
-        wrapperTask.execute()
+        runner.run(wrapperTask)
     }
 
     void noMatch() {

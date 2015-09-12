@@ -11,7 +11,8 @@ class OutputFactory {
     }
 
     def static Output create(OutputListener listener, Project project, String name, boolean quiet = false) {
-        if (System.getProperty(SIMPLE_OUTPUT_PROPERTY)?.toBoolean()) {
+        if (System.hasProperty(OutputFactory.SIMPLE_OUTPUT_PROPERTY) &&
+                System.getProperty(OutputFactory.SIMPLE_OUTPUT_PROPERTY)?.toBoolean()) {
             return new DefaultOutput(quiet, listener);
         }
 
@@ -25,7 +26,7 @@ class OutputFactory {
 
         def gradle = project.getGradle()
         def boolean isGradleInternal = gradle instanceof org.gradle.api.internal.GradleInternal;
-        def boolean hasGradleServices = gradle.metaClass.respondsTo(gradle, "getServices")
+        def boolean hasGradleServices = gradle == null ? false : gradle.metaClass.respondsTo(gradle, "getServices")
 
         if (!(isGradleInternal && hasGradleServices)) {
             return new DefaultOutput(quiet, listener);
