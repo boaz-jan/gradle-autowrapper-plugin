@@ -12,13 +12,6 @@ class AutowrapperPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         def potentialHijackedTask = project.tasks.findByName(WRAPPER_TASK_NAME)
-        if (AutowrapperPlugin.get(project) != null &&
-                AutowrapperExtension.exists(project) &&
-                potentialHijackedTask != null &&
-                potentialHijackedTask instanceof Wrapper) {
-            //This means this plugin and it's components are already fully applied
-            return
-        }
 
         if (project.extensions.findByName(AUTOWRAPPER_EXTENSION_NAME) != null) {
             throw new PluginInstantiationException("Cannot instantiate plugin Autowrapper due to hijacked extension name (${AUTOWRAPPER_EXTENSION_NAME})")
@@ -33,9 +26,6 @@ class AutowrapperPlugin implements Plugin<Project> {
         project.afterEvaluate(new AutowrapperExecutor(ext, wrapperTask))
     }
 
-    def static Plugin get(Project p){
-        return p.plugins.findPlugin(AutowrapperPlugin.class)
-    }
 }
 
 
