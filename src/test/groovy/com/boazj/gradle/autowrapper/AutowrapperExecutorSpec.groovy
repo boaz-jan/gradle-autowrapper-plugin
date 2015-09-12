@@ -54,4 +54,39 @@ class AutowrapperExecutorSpec extends Specification {
             def e = thrown(StopExecutionException.class)
             e.message == 'Gradle version is not as required'
     }
+
+    def 'test older version'() {
+        given:
+            def Project p = Mock()
+            p.getGradle() >> null
+            def TaskRunner runner = Mock()
+            def Wrapper wrapperMock = createDefaultWrapperMock()
+            def AutowrapperExtension ext = new AutowrapperExtension(wrapperMock)
+            ext.gradleVersion = '2.7'  //TODO: make sure this is always newer then the building version
+            def AutowrapperExecutor exec = new AutowrapperExecutor(ext, wrapperMock, runner)
+        when:
+            exec.call(p)
+        then:
+            1 * runner.run(wrapperMock)
+        then:
+            def e = thrown(StopExecutionException.class)
+            e.message == 'Gradle version is not as required'
+    }
+
+
+    def 'test older version without auto generation'() {
+        given:
+            def Project p = Mock()
+            p.getGradle() >> null
+            def Wrapper wrapperMock = createDefaultWrapperMock()
+            def AutowrapperExtension ext = new AutowrapperExtension(wrapperMock)
+            ext.gradleVersion = '2.7'  //TODO: make sure this is always newer then the building version
+            ext.autoGen = false
+            def AutowrapperExecutor exec = new AutowrapperExecutor(ext, wrapperMock)
+        when:
+            exec.call(p)
+        then:
+            def e = thrown(StopExecutionException.class)
+            e.message == 'Gradle version is not as required'
+    }
 }
