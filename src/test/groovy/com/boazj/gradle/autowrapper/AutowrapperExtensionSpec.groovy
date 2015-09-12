@@ -15,4 +15,20 @@ class AutowrapperExtensionSpec extends Specification {
         expect:
             AutowrapperExtension.get(p) == ext
     }
+
+    def 'test extension present'() {
+        given:
+            def Project p = ProjectBuilder.builder().build()
+            def wrapperTask = p.tasks.create(AutowrapperPlugin.WRAPPER_TASK_NAME, Wrapper.class)
+            p.extensions.create(AutowrapperPlugin.AUTOWRAPPER_EXTENSION_NAME, AutowrapperExtension, wrapperTask)
+        expect:
+            AutowrapperExtension.exists(p) == true
+    }
+
+    def 'test extension not present'() {
+        given:
+            def Project p = ProjectBuilder.builder().build()
+        expect:
+            AutowrapperExtension.exists(p) == false
+    }
 }
