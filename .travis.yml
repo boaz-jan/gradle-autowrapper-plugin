@@ -2,9 +2,9 @@ language: java
 sudo: false
 jdk:
 - oraclejdk7
-script: "./gradlew build"
+script: "./gradlew build -S"
 after_success:
-- "./gradlew jacocoTestReport coveralls"
+- "./gradlew jacocoTestReport coveralls -S"
 cache:
   directories:
   - "$HOME/.gradle/caches/"
