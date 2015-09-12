@@ -9,7 +9,7 @@ class OutputFactory {
     def static final String SIMPLE_OUTPUT_PROPERTY = 'com.boazj.autowrapper.simpleoutput'
 
     def static Output create(Project project, String name, boolean quiet = false) {
-        if (System.getProperty(SIMPLE_OUTPUT_PROPERTY).toBoolean()) {
+        if (System.getProperty(SIMPLE_OUTPUT_PROPERTY)?.toBoolean()) {
             return new DefaultOutput(project, name, quiet);
         }
 
