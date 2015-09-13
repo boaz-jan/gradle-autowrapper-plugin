@@ -49,14 +49,14 @@ autowrapper {
 }
 ```
 
-Property               | Description                                            | Default Value
--------------          | -------------                                          | -------------
-_String_ gradleVersion | The required gradle version                            | Gradle version
-_boolean_ strict       | If a newer version then gradleVersion is acceptable    | false
-_boolean_ failFast     | If the build should fail on gradle version mismatch    | true
-_boolean_ autoGen      | If the plugin should auto generate the correct wrapper | true
-_boolean_ quiet        | If the plugin should output to the log                 | false
-_DistributionLocator_ distributionLocator | generates the url according to the desired version. | null
+Property               						| Description                                            											| Default Value
+-------------          						| -------------                                          											| -------------
+_String_ gradleVersion 						| The required gradle version                            											| Gradle version
+_boolean_ strict       						| If a newer version then gradleVersion is acceptable    											| false
+_boolean_ failFast     						| If the build should fail on gradle version mismatch    											| true
+_boolean_ autoGen      						| If the plugin should auto generate the correct wrapper 											| true
+_boolean_ quiet        						| If the plugin should output to the log                 											| false
+_DistributionLocator_ distributionLocator   | Generates the url according to the desired version. Takes effect only if distributionUrl is null  | null
 archiveBase       | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archiveBase)
 archivePath       | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archivePath)
 distributionBase  | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionBase)
