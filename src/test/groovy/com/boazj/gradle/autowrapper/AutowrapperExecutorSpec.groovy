@@ -24,7 +24,6 @@ class AutowrapperExecutorSpec extends Specification {
         wrapperTask.distributionUrl >> proto.distributionUrl
         wrapperTask.jarFile >> proto.jarFile
         wrapperTask.scriptFile >> proto.scriptFile
-        _ * wrapperTask./set.*/(_)
         return wrapperTask
     }
 
@@ -82,6 +81,33 @@ class AutowrapperExecutorSpec extends Specification {
             listener.contains('Checking Gradle version ... ')
             listener.contains("The build script requires Gradle ${ext.gradleVersion}. Currently executing ${executionVersion}.")
             listener.contains("Generating Gradle Wrapper for version ${ext.gradleVersion}.")
+        then:
+            1 * runner.run(wrapperMock)
+        then:
+            listener.contains('Failing build, please execute this script again with the Gradle Wrapper')
+        then:
+            def e = thrown(StopExecutionException.class)
+            e.message == 'Gradle version is not as required'
+    }
+
+    def 'test older version with a custom distribution locator'() {
+        given:
+            def DistributionLocator locator = { 'http://fake.com' } as DistributionLocator
+            def OutputListener listener = new AccumulatingOutputListener()
+            def TaskRunner runner = Mock()
+            def Wrapper wrapperMock = createDefaultWrapperMock()
+            def AutowrapperExtension ext = new AutowrapperExtension(wrapperMock)
+            ext.gradleVersion = nextVersion
+            ext.distributionLocator = locator
+            def AutowrapperExecutor exec = new AutowrapperExecutor(ext, wrapperMock, runner, listener)
+        when:
+            exec.call(Mock(Project))
+        then:
+            listener.contains('Checking Gradle version ... ')
+            listener.contains("The build script requires Gradle ${ext.gradleVersion}. Currently executing ${executionVersion}.")
+            listener.contains("Generating Gradle Wrapper for version ${ext.gradleVersion}.")
+        then:
+            1 * wrapperMock.setDistributionUrl('http://fake.com')
         then:
             1 * runner.run(wrapperMock)
         then:

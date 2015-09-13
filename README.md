@@ -56,6 +56,7 @@ _boolean_ strict       | If a newer version then gradleVersion is acceptable    
 _boolean_ failFast     | If the build should fail on gradle version mismatch    | true
 _boolean_ autoGen      | If the plugin should auto generate the correct wrapper | true
 _boolean_ quiet        | If the plugin should output to the log                 | false
+_DistributionLocator_ distributionLocator | generates the url according to the desired version. | null
 archiveBase       | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archiveBase)
 archivePath       | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:archivePath)
 distributionBase  | See [Documentation](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html#org.gradle.api.tasks.wrapper.Wrapper:distributionBase)
@@ -68,7 +69,7 @@ scriptFile        | See [Documentation](https://docs.gradle.org/current/dsl/org.
 ## Road Map
 - [X] Add tests
 - [X] Add an "only enforce" mode in which the plugin does not regenerate the wrapper to the required version
-- [ ] Add a simplified way to create a distribution locator which will provide a simple way to access custom mirrors for the Gradle binaries
+- [X] Add a simplified way to create a distribution locator which will provide a simple way to access custom mirrors for the Gradle binaries
 - [ ] Add a locator for obtaining a centralized Gradle version instead of a per build script version
 - [ ] Add support for version ranges and lists
 - [ ] Add support for custom wrapper tasks

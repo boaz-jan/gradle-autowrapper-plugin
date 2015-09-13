@@ -10,6 +10,7 @@ class AutowrapperExtension {
     def String gradleVersion = GradleVersion.current().getVersion()
     def boolean quiet = false
     def boolean autoGen = true
+    def DistributionLocator distributionLocator
 
     def Wrapper.PathBase archiveBase
     def String archivePath

@@ -23,7 +23,7 @@ class AutowrapperExecutor extends Closure<Void> {
         this.ext = ext
         this.wrapperTask = wrapperTask
         this.runner = runner
-        if (runner == null){
+        if (runner == null) {
             this.runner = new DefaultTaskRunner();
         }
         this.listener = listener
@@ -50,7 +50,11 @@ class AutowrapperExecutor extends Closure<Void> {
         wrapperTask.setArchivePath(ext.archivePath)
         wrapperTask.setDistributionBase(ext.distributionBase)
         wrapperTask.setDistributionPath(ext.distributionPath)
-        wrapperTask.setDistributionUrl(ext.distributionUrl)
+        if (ext.distributionLocator == null) {
+            wrapperTask.setDistributionUrl(ext.distributionUrl)
+        } else {
+            wrapperTask.setDistributionUrl(ext.distributionLocator.getDistributionFor(GradleVersion.version(ext.gradleVersion)))
+        }
         wrapperTask.setJarFile(ext.jarFile)
         wrapperTask.setScriptFile(ext.scriptFile)
         runner.run(wrapperTask)
