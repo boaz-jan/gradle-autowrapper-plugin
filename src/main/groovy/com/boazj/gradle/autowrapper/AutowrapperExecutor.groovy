@@ -3,6 +3,7 @@ package com.boazj.gradle.autowrapper
 import com.boazj.gradle.utils.Color
 import com.boazj.gradle.utils.Output
 import com.boazj.gradle.utils.OutputFactory
+import com.boazj.gradle.utils.OutputListener
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.wrapper.Wrapper
@@ -15,8 +16,9 @@ class AutowrapperExecutor extends Closure<Void> {
     def GradleVersion executionGradleVersion = GradleVersion.current()
     def Wrapper wrapperTask
     def TaskRunner runner
+    def OutputListener listener
 
-    AutowrapperExecutor(AutowrapperExtension ext, Wrapper wrapperTask, TaskRunner runner = null) {
+    AutowrapperExecutor(AutowrapperExtension ext, Wrapper wrapperTask, TaskRunner runner = null, OutputListener listener = null) {
         super(null)
         this.ext = ext
         this.wrapperTask = wrapperTask
@@ -24,10 +26,11 @@ class AutowrapperExecutor extends Closure<Void> {
         if (runner == null){
             this.runner = new DefaultTaskRunner();
         }
+        this.listener = listener
     }
 
     void doCall(Project project) {
-        out = OutputFactory.create(project, "autowrapper-output", ext.quiet)
+        out = OutputFactory.create(listener, project, "autowrapper-output", ext.quiet)
         out.say('Checking Gradle version ... ')
         def expectedGradleVersion = GradleVersion.version(ext.gradleVersion)
         if (expectedGradleVersion > executionGradleVersion || (expectedGradleVersion < executionGradleVersion && ext.strict)) {
@@ -59,7 +62,7 @@ class AutowrapperExecutor extends Closure<Void> {
         if (ext.failFast) {
             fail()
         } else {
-            out.sayln("This might effect the build process.", Color.Yellow)
+            out.sayln('This might effect the build process.', Color.Yellow)
         }
     }
 
