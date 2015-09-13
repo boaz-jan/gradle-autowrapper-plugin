@@ -11,7 +11,7 @@ well though of copy-paste of build scripts and the overall neglect of older buil
 
 This plugin is the first step of solving such problems - making sure the build is executed with the correct binaries.
 The Autowrapper plugin provides a simple way to ensure that the execution uses a new enough or even exact version of
-Gradle. In the case of a mismatch version - it will generate the correct version of Gradle Wrapper.
+Gradle. In the case of a mismatch version - it will generate the correct version of the Gradle Wrapper.
 
 ![Screenshot](/docs/screenshot.jpg?raw=true "Screenshot")
 (In this screenshot you can see the result of a strict, failFast configuration. Autowrapper recognizes that the executing
@@ -70,5 +70,7 @@ scriptFile        | See [Documentation](https://docs.gradle.org/current/dsl/org.
 - [X] Add an "only enforce" mode in which the plugin does not regenerate the wrapper to the required version
 - [ ] Add a simplified way to create a distribution locator which will provide a simple way to access custom mirrors for the Gradle binaries
 - [ ] Add a locator for obtaining a centralized Gradle version instead of a per build script version
+- [ ] Add support for version ranges and lists
+- [ ] Add support for custom wrapper tasks
 - [ ] Add cli override to some of the properties
 - [ ] Publish to bintray and plugin portal

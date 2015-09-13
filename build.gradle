@@ -30,9 +30,6 @@ jacocoTestReport {
     }
 }
 
-group = 'com.boazj.gradle'
-version = '1.0-rc1'
-
 task wrapper(type: Wrapper) {
     gradleVersion = '2.6'
 }
