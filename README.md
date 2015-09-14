@@ -20,10 +20,8 @@ Gradle is 2.6 and the required version is 2.5 thus failing the build and generat
 
 ## Usage
 
-Currently there is no available dependency you can pull from the various repositories, for that the maven plugin is appearent
-in the plugin's build script
 
-To build the project and make it available as a maven local artifact execute the following command from the clone directory
+To build the project execute the following command from the clone directory
 ```shell
 ./gradlew clean build install
 ```
@@ -34,10 +32,10 @@ apply plugin: 'com.boazj.autowrapper'
 
 buildscript {
 	repositories {
-		mavenLocal()
+		jcenter()
 	}
 	dependencies {
-		classpath 'com.boazj.gradle:gradle-autowrapper-plugin:v0.1.0-SNAPSHOT'
+		classpath 'com.boazj.gradle:gradle-autowrapper-plugin:0.1.0'
 	}
 }
 ```

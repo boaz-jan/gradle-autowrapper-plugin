@@ -2,10 +2,10 @@ apply plugin: 'com.boazj.autowrapper'
 
 buildscript {
 	repositories {
-		mavenLocal()
+		jcenter()
 	}
 	dependencies {
-		classpath 'com.boazj.gradle:gradle-autowrapper-plugin:v0.1.0-SNAPSHOT'
+		classpath 'com.boazj.gradle:gradle-autowrapper-plugin:0.1.0'
 	}
 }
 

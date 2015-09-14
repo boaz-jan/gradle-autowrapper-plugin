@@ -11,3 +11,5 @@ cache:
   - "$HOME/.gradle/caches/"
 before_install:
 - openssl aes-256-cbc -K $encrypted_5d4ff8acf7ad_key -iv $encrypted_5d4ff8acf7ad_iv -in gradle.properties.enc -out gradle.properties -d
+notifications:
+  email: false
