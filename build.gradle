@@ -62,7 +62,6 @@ task release {
         bintray.key = project.property('bintrayKey')
     }
     def tag = (System.env.TRAVIS_TAG) as String
-    println tag
     if (tag != null && !tag.empty) {
         println "Found git tag ${tag}, setting as release version"
         project.version = tag
