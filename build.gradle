@@ -72,7 +72,7 @@ task release {
 
 bintray {
     configurations = ['archives']
-    dryRun = true
+    dryRun = false
     publish = true
     pkg {
         repo = 'gradle-plugins'
