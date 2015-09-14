@@ -17,20 +17,12 @@ class AutowrapperPluginSpec extends PluginProjectSpec {
             this.project.tasks.getByName(AutowrapperPlugin.WRAPPER_TASK_NAME)
     }
 
-    def 'test autowrapper task when applying plugin via short name'() {
-        when:
-            this.project.apply plugin: 'autowrapper'
-
-        then:
-            this.project.tasks.getByName(AutowrapperPlugin.WRAPPER_TASK_NAME)
-    }
-
     def 'test hijacked task'() {
         given:
             this.project.tasks.create(AutowrapperPlugin.WRAPPER_TASK_NAME, Wrapper.class)
 
         when:
-            this.project.apply plugin: 'autowrapper'
+            this.project.apply plugin: 'com.boazj.autowrapper'
 
         then:
             def e = thrown(GradleException.class)
@@ -42,7 +34,7 @@ class AutowrapperPluginSpec extends PluginProjectSpec {
             def wrapperTask = this.project.tasks.create(AutowrapperPlugin.WRAPPER_TASK_NAME, Wrapper.class)
             this.project.extensions.create(AutowrapperPlugin.AUTOWRAPPER_EXTENSION_NAME, AutowrapperExtension, wrapperTask)
         when:
-            this.project.apply plugin: 'autowrapper'
+            this.project.apply plugin: 'com.boazj.autowrapper'
 
         then:
             def e = thrown(GradleException.class)
@@ -51,9 +43,9 @@ class AutowrapperPluginSpec extends PluginProjectSpec {
 
     def 'test apply plugin on a project with that plugin already applied'() {
         given:
-            this.project.apply plugin: 'autowrapper'
+            this.project.apply plugin: 'com.boazj.autowrapper'
         when:
-            this.project.apply plugin: 'autowrapper'
+            this.project.apply plugin: 'com.boazj.autowrapper'
 
         then:
             noExceptionThrown()

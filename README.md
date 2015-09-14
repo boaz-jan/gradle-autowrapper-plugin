@@ -30,14 +30,14 @@ To build the project and make it available as a maven local artifact execute the
 
 To apply the plugin in your build add the following to the build script
 ```gradle
-apply plugin: 'autowrapper'
+apply plugin: 'com.boazj.autowrapper'
 
 buildscript {
 	repositories {
 		mavenLocal()
 	}
 	dependencies {
-		classpath 'com.boazj.gradle:gradle-autowrapper-plugin:1.0-rc1'
+		classpath 'com.boazj.gradle:gradle-autowrapper-plugin:v0.1.0-SNAPSHOT'
 	}
 }
 ```
